@@ -4,7 +4,7 @@ import com.example.restclub.interf.RetrofitServices
 import com.example.restclub.retrofit.RetrofitClient
 
 object Common {
-    const val BASE_URL = "http://250d3b5e1072.ngrok.io/"
+    const val BASE_URL = "http://34c4318d9c15.ngrok.io/"
     val retrofitService: RetrofitServices
         get() = RetrofitClient.getClient(BASE_URL).create(RetrofitServices::class.java)
 }

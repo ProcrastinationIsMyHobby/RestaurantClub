@@ -12,6 +12,7 @@ import com.example.restclub.R
 import com.example.restclub.common.Common
 import com.example.restclub.model.Restaurant
 import com.example.restclub.model.Root
+import com.example.restclub.pictrans.TransPic
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item.view.*
 
@@ -48,7 +49,7 @@ class MyAdapter(private val context: Context,private val root: Root?):RecyclerVi
         val listItem = restList[position]
 
         if(listItem.image.isNotEmpty()) {
-            Picasso.get().load(Common.BASE_URL + "media/" + listItem.image[0]).into(holder.image)
+            Picasso.get().load(Common.BASE_URL + "media/" + listItem.image[0]).transform(TransPic()).into(holder.image)
         }
 
         holder.txtTitle.text = listItem.restaurant_name
