@@ -30,15 +30,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         search = search_bar
 
-
-
         mService = Common.retrofitService
         recycler.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(this)
         recycler.layoutManager = layoutManager
         dialog = SpotsDialog.Builder().setCancelable(true).setContext(this).build()
 
-        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        search.setOnQueryTextListener(initSearchListener())
+
+        getAllRestList()
+
+    }
+
+
+    private fun initSearchListener(): SearchView.OnQueryTextListener {
+
+        return object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 dialog.show()
@@ -46,39 +53,29 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<Root>, t: Throwable) {
 
-                        Toast.makeText(this@MainActivity,"Не удалось подключиться(((", Toast.LENGTH_LONG).show()
-
                     }
 
                     override fun onResponse(call: Call<Root>?, response: Response<Root>?) {
-                        if ((response != null) && (response.body() != null )) {
+                        if ((response != null) && (response.body() != null)) {
                             adapter = MyAdapter(baseContext, response.body() as Root)
                             adapter.notifyDataSetChanged()
                             recycler.adapter = adapter
-                        }
-                        else
-                        {
-                            Toast.makeText(this@MainActivity,"Не найдено", Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(this@MainActivity, "Не найдено", Toast.LENGTH_LONG)
+                                .show()
 
                         }
-
 
                         dialog.dismiss()
                     }
                 })
-
-
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
-
-        })
-
-        getAllRestList()
-
+        }
     }
 
     private fun getAllRestList() {

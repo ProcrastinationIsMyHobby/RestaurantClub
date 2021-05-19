@@ -1,20 +1,24 @@
 package com.example.restclub.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.restclub.MainActivity
 import com.example.restclub.R
+import com.example.restclub.RestaurantActivity
 import com.example.restclub.common.Common
 import com.example.restclub.model.Restaurant
 import com.example.restclub.model.Root
 import com.example.restclub.pictrans.TransPic
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item.view.*
+import java.security.AccessController.getContext
 
 
 class MyAdapter(private val context: Context,private val root: Root?):RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
@@ -28,12 +32,9 @@ class MyAdapter(private val context: Context,private val root: Root?):RecyclerVi
         val txtLocation: TextView = itemView.txtLocation
 
         fun bind(listItem: Restaurant) {
-            image.setOnClickListener {
-                Toast.makeText(it.context, "нажал на ${itemView.card_image}", Toast.LENGTH_SHORT)
-                    .show()
-            }
+
             itemView.setOnClickListener {
-                Toast.makeText(it.context, "нажал на ${itemView.txtTitle.text}", Toast.LENGTH_SHORT).show()
+                TODO("Make magick")
             }
         }
     }
