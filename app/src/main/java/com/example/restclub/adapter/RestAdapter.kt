@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.restclub.MainActivity
 import com.example.restclub.R
 import com.example.restclub.RestaurantActivity
 import com.example.restclub.common.Common
@@ -18,10 +18,10 @@ import com.example.restclub.model.Root
 import com.example.restclub.pictrans.TransPic
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item.view.*
-import java.security.AccessController.getContext
 
 
-class MyAdapter(private val context: Context,private val root: Root?):RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
+class MyAdapter(private val context: Context, root: Root?):RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     private val restList: List<Restaurant> = root!!.data
 
@@ -31,12 +31,18 @@ class MyAdapter(private val context: Context,private val root: Root?):RecyclerVi
         val averageCheck: TextView = itemView.txtAverageCheck
         val txtLocation: TextView = itemView.txtLocation
 
-        fun bind(listItem: Restaurant) {
+        fun bind(listItem: Restaurant, context: Context) {
 
             itemView.setOnClickListener {
-                TODO("Make magick")
+
+                Toast.makeText(context, "Нажал на " + listItem.restaurant_id.toString(), Toast.LENGTH_LONG).show()
+
+                val intent = Intent(context, RestaurantActivity::class.java)
+                intent.putExtra("REST_ID",listItem.restaurant_id)
+                startActivity(context,intent,null)
             }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -57,6 +63,7 @@ class MyAdapter(private val context: Context,private val root: Root?):RecyclerVi
         holder.averageCheck.text = listItem.average_check_restaurant.toString()
         holder.txtLocation.text = listItem.location
 
-        holder.bind(listItem)
+        holder.bind(listItem, context)
+
     }
 }

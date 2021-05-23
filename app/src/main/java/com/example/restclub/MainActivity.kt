@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     private fun getAllRestList() {
 
         dialog.show()
-        mService.getStartRestaurants().enqueue(object : Callback<Root> {
+        mService.getStartRestaurantsAPI().enqueue(object : Callback<Root> {
 
             override fun onFailure(call: Call<Root>, t: Throwable) {
             }
